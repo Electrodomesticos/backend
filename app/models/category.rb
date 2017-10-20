@@ -1,3 +1,4 @@
 class Category < ApplicationRecord
-    has_many :household_apliances
+    belongs_to :user
+    has_many :household_appliances
 end

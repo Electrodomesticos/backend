@@ -1,5 +1,5 @@
 class RoomsController < ApplicationController
-  before_action :set_room, only: [:show, :update, :destroy]
+  before_action :set_room, only: [:show, :update, :destroy, :my_outlets]
 
   # GET /rooms
   def index
@@ -24,6 +24,17 @@ class RoomsController < ApplicationController
     end
   end
 
+  def my_outlets
+    @outlets = @room.outlets
+    if @outlets
+      render json: @outlets
+    else
+      render json: "error"
+    end
+  end
+
+  
+
   # PATCH/PUT /rooms/1
   def update
     if @room.update(room_params)
@@ -38,16 +49,15 @@ class RoomsController < ApplicationController
     @room.destroy
   end
 
-   # GET /users/user_id/domiciles
+   # GET /users/user_id/rooms
    def my_rooms
-    @rooms = Room.where("domicile_id = ?", params[:domicile_id])
+    @rooms = Room.where("user_id = ?", params[:user_id])
     if @rooms
       render json: @rooms
     else
       render json: "error"
     end
   end
-
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -57,6 +67,6 @@ class RoomsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def room_params
-      params.require(:room).permit(:name, :domicile_id)
+      params.require(:room).permit(:name, :user_id)
     end
 end

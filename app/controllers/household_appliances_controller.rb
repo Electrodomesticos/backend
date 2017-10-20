@@ -38,6 +38,16 @@ class HouseholdAppliancesController < ApplicationController
     @household_appliance.destroy
   end
 
+  # GET /users/user_id/household_appliances
+   def my_appliances
+    @household_appliances = HouseholdAppliance.where("user_id = ?", params[:user_id])
+    if @household_appliances
+      render json: @household_appliances
+    else
+      render json: "error"
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_household_appliance
@@ -46,6 +56,6 @@ class HouseholdAppliancesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def household_appliance_params
-      params.require(:household_appliance).permit(:name, :electricity_use, :outlet_id, :category_id)
+      params.require(:household_appliance).permit(:name, :electricity_use, :outlet_id, :category_id, :user_id)
     end
 end
