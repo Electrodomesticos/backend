@@ -38,9 +38,9 @@ class UsersController < ApplicationController
     @user.destroy
   end
 
-   # GET /users/search/:user_name
+   # GET /users/search/:email
      def current_user
-      @user = User.where("user_name = ?", params[:user_name])
+      @user = User.where("email = ?", params[:email])
       if @user
         render json: @user
       else

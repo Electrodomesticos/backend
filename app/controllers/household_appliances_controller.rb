@@ -48,6 +48,18 @@ class HouseholdAppliancesController < ApplicationController
     end
   end
 
+  
+
+    # GET /categories/:category_id/household_appliances
+    def in_category
+      @household_appliances = HouseholdAppliance.where("category_id = ?", params[:category_id])
+      if @household_appliances
+        render json: @household_appliances
+      else
+        render json: "error"
+      end
+    end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_household_appliance
