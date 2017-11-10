@@ -53,8 +53,10 @@ class HouseholdAppliancesController < ApplicationController
         else
           initial = @outlet.updated_at
           final = Time.now
-          @current_consumption = @current_consumption + (final - initial)/3600*appliance.electricity_use
+          @appliance_consumption = appliance.consumption + (final - initial)/3600*appliance.electricity_use
+          @current_consumption = @current_consumption + @appliance_consumption
           @outlet.update(updated_at: Time.now)
+          appliance.update(consumption: @appliance_consumption)
         end
       end
     end
