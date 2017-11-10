@@ -8,14 +8,17 @@ class WselectroController < ApplicationController
 
     # puts params[:email]
     user = User.by_email(params[:email])
+    puts user.id
     consumption = -1.0
     if user
       consumption = 0.0
-      user.household_appliances.each do |ha|
-        consumption = consumption + ha.consumption
-        puts "lt.consumption = ", ha.consumption
-      end
+      consumption = user.total_consumption(user.id)
+      puts consumption
+      # user.household_appliances.each do |ha|
+      #   consumption = consumption + ha.consumption
+      #   puts "lt.consumption = ", ha.consumption
     end
+  
 
 
     # puts consumption
