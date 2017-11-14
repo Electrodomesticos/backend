@@ -30,6 +30,7 @@ class OutletsController < ApplicationController
     #     if appliance.outlet_id
     #       @outlet = Outlet.find(appliance.outlet_id)
     #       puts out
+    #
     if @outlet.update(outlet_params)
       render json: @outlet
     else
